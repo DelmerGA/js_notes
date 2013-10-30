@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+	<script>
+	$(function(){
+
+		var bubbles = $('.bubble')
+		var time = 0;
+		for( var i = 0; i < bubbles.length; i++){
+			bubbles[i].onclick = function(event){
+    				if(this == event.target){
+    					alert("I was clicked!")
+    					this.style.backgroundColor = "red"
+    				} else {
+    					alert("One of my inner divs were clicked!")
+    					this.style.backgroundColor = "red"
+    					this.children[0].style.backgroundColor = "purple"
+    				}
+    			}
+    		}
+    		var reset = function(){
+    			for( var i = 0; i < bubbles.length; i++){
+    				bubbles[i].style.backgroundColor = "blue"
+    			}
+    		}
+    		$('#resetBubbles').click(reset)
+    		$('#showExample1').click(function(event){
+    			$("#codeEx1")[0].classList.toggle("hidden");
+    		})
+    	})
+	</script>
+	<script src="http://code.jquery.com/jquery.min.js"></script>
+	<link href="http://getbootstrap.com/dist/css/bootstrap.css" rel="stylesheet" type="text/css" />
+	<script src="http://getbootstrap.com/dist/js/bootstrap.js"></script>
+	<style>
+		.bubble{
+	        background-color: blue; 
+	        padding: 20px;
+	        border: solid 5px white;
+	    }  
+	
+		.hidden{
+			visibility: hidden;
+		}
+
+	   </style>
+
+<meta charset=utf-8 />
+<title>JS Bin</title>
+</head>
+	<body>
+		
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-6">
+					<h2>
+						Event bubbling!
+					</h2>
+					<p>
+						When an event occurs on an element
+						the default behavior of javascript is
+						to trigger that event through each of the parent nodes in DOM until it gets to the window.
+					</p>
+					<p>
+						This behavior is called event bubbling.
+					</p>
+				</div>
+				<div class="bubble col-xs-6">
+					<div class="bubble col-xs-12">
+						<div class="bubble col-xs-12">
+				            <div class="bubble col-xs-12">
+				            </div>
+				        </div>
+				    </div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-6 col-sm-offset-6">
+					<button id="resetBubbles" class="btn btn-default">
+						RESET
+					</button>
+					<button id="showExample1" class="btn btn-info">
+						Show Code
+					</button>
+				</div>
+			</div>
+		</div>
+		<pre id="codeEx1" class="hidden">
+			<code>
+				safsd
+		    </code>
+		</pre>
+	</body>
+</html>

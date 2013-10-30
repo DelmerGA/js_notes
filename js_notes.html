@@ -88,8 +88,35 @@
 		</div>
 		<pre id="codeEx1" class="hidden">
 			<code>
-				safsd
+				&lt;style>
+				    .bubble{
+				        position: inherit;
+				        background-color: blue; 
+				        padding: 20px,
+				        border: solid 5px white;
+				    }
+				&lt;/style>
 		    </code>
+			<code>
+			&lt;div class="bubble">
+			    &lt;div class="bubble">
+			        &lt;div class="bubble">
+			            &lt;div class="bubble">
+
+			            &lt;/div>
+			        &lt;/div>
+			    &lt;/div>
+			&lt;/div>
+		    </code>
+		    
+		    &lt;script>	
+		 		var bubbles = document.getElementsByClassName("bubble")
+		 		for( var i = 0; i < bubbles.length; i++){   
+    				bubbles[i].onclick = function(event){
+   				  		this.style.backgroundColor = "red"
+    				}
+				}
+		    &lt;/script>
 		</pre>
 	</body>
 </html>

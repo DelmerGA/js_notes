@@ -1,0 +1,1 @@
+http://delmerga.github.io/js_notes/

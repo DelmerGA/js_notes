@@ -43,15 +43,26 @@
 		.hidden{
 			visibility: hidden;
 		}
+		.spacer {
+			background-color: #fcfcfc;
+		}
 
 
 	   </style>
 
 <meta charset=utf-8 />
-<title>JS Bin</title>
+<title>JS Notes</title>
 </head>
 	<body>
-		
+	
+<!-- NEW STUFF -->	
+		<div class="jumbotron">
+			 <div class="container">
+			 		<h1 class="heading">Some JS Notes</h1>
+			 </div>
+		</div>
+
+<!-- NEW STUFF -->
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-6">
@@ -143,7 +154,7 @@ for( var i = 0; i < bubbles.length; i++) {
 &lt;/script&gt;
 	</pre>
 	
-	  	<div class="container">
+	 <div class="container">
 		<div class="bubble-ish bubble-ex">
 		    <div class="bubble-ish bubble-ex">
 		        <div class="bubble-ish bubble-ex">
@@ -159,8 +170,123 @@ for( var i = 0; i < bubbles.length; i++) {
 			        this.style.backgroundColor = "red"
 			    }
 			}
+
 	</script>
-	    </div>
 	</div>
+	</div>
+
+
+	<!-- NEW STUFF -->
+<div class="jumbotron spacer">
+</div>
+<!-- NEW STUFF -->
+
+<div class="container">
+	<div class="row">
+		<div class="col-sm-6">
+		<h1>Event Target/Current Target</h1>
+
+		 In javascript we also have <code>target</code>
+		 and <code>currentTarget</code>
+		</div>
+		<div class="col-sm-6">
+		
+			<style>
+				.target{
+					background: blue;
+					padding:20px;
+					border: solid 5px white;
+
+				}
+			</style>
+			<div class="target">
+		    <div class="target">
+		        <div class="target">
+		            <div class="target">
+		            </div>
+		        </div>
+		    </div>
+			</div>
+
+		</div>
+	</div>
+
+		<div class="row">
+			<div class="col-sm-6 col-sm-offset-6">
+				<button id="resetTargets" class="btn btn-default">
+					RESET
+				</button>
+				<button id="showExample2" class="btn btn-info">
+					Show Code
+				</button>
+			</div>
+		</div>
+		
+		<script>
+			var elements = document.getElementsByClassName("target")
+			for( var i = 0; i < elements.length; i++) {
+   			elements[i].onclick = function(event) {
+    		if (event.target == event.currentTarget){
+        	this.style.backgroundColor = "red"
+     		 } else{
+     		 	this.style.backgroundColor = "purple"
+     		 }
+    	}
+		}
+		   	var targetReset = function(){
+    			for( var i = 0; i < bubbles.length; i++){
+    				elements[i].style.backgroundColor = "blue"
+    			}
+    		}
+    		document.getElementById("resetTargets").onclick = targetReset;
+		</script>
+	</div>
+
+
+<!-- NEW STUFF -->
+<div class="jumbotron spacer">
+</div>
+
+<!-- NEW STUFF -->
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-6">
+					<h2> Manipulating Form Data </h2>
+
+					If you have a form you want grab
+					input from that element on submit 
+					it will take a some work.
+					<div class="row">
+						<i>1.) You have to grab the input elements.</i>
+					</div>
+					<div class="row">
+						<i>2.) You have to do something with with the input.</i>
+					</div>
+					<div class="row">
+						<i>3.) You have to clear the input fields.</i>
+					</div>
+				</div>
+				<div class="col-sm-6">
+					<form class="form-horizontal" role="form">
+						 <div class="form-group">
+    					<label for="something_title">Title</label>
+    						<input type="text" class="form-control" id="something_title" placeholder="Enter Title">
+  					 </div>
+  					 <div class="form-group">
+    					<label for="something_description">Description</label>
+    						<textarea class="form-control" id="something_description" placeholder="Enter Description"></textarea>
+  					 </div>
+
+					 <div class="form-group">
+				    <div class="col-sm-10">
+				      <button type="submit" class="btn btn-default">Sign in</button>
+				    </div>
+ 					 </div>
+					</form>
+
+				</div>
+			</div>	
+		</div>
+
 	</body>
 </html>

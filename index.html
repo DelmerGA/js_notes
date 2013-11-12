@@ -103,6 +103,7 @@
 			</div>
 		</div>
 		<div id="codeEx1" class="hidden">
+			* Slightly different from the above example.
 <pre>
 &lt;style&gt;
 	.bubble{
@@ -221,8 +222,27 @@ for( var i = 0; i < bubbles.length; i++) {
 				</button>
 			</div>
 		</div>
-		
+		<div class="row hidden" id="example2Code">
+			<pre>
+				var elements = document.getElementsByClassName("bubble")
+
+				for( var i = 0; i < elements.length; i++) {
+					elements[i].onclick = function(event) {
+						if (event.target == event.currentTarget){
+							this.style.backgroundColor = "red"
+						} else{
+							this.style.backgroundColor = "purple"
+						}
+					}
+				}
+
+		</script>
+			</pre>
+		</div>
 		<script>
+			document.getElementById("showExample2").onclick = function(){
+				document.getElementById("example2Code").classList.toggle("hidden")
+			}
 			var elements = document.getElementsByClassName("target")
 			for( var i = 0; i < elements.length; i++) {
    			elements[i].onclick = function(event) {
@@ -231,6 +251,7 @@ for( var i = 0; i < bubbles.length; i++) {
      		 } else{
      		 	this.style.backgroundColor = "purple"
      		 }
+     		setTimeout(targetReset,1000);
     	}
 		}
 		   	var targetReset = function(){
@@ -267,14 +288,14 @@ for( var i = 0; i < bubbles.length; i++) {
 					</div>
 				</div>
 				<div class="col-sm-6">
-					<form class="form-horizontal" role="form">
+					<form id="myForm" class="form-horizontal" role="form">
 						 <div class="form-group">
     					<label for="something_title">Title</label>
-    						<input type="text" class="form-control" id="something_title" placeholder="Enter Title">
+    						<input type="text" name="something[title]"class="form-control" id="something_title" placeholder="Enter Title">
   					 </div>
   					 <div class="form-group">
     					<label for="something_description">Description</label>
-    						<textarea class="form-control" id="something_description" placeholder="Enter Description"></textarea>
+    						<textarea class="form-control" name="something[description]" id="something_description" placeholder="Enter Description"></textarea>
   					 </div>
 
 					 <div class="form-group">
@@ -283,10 +304,180 @@ for( var i = 0; i < bubbles.length; i++) {
 				    </div>
  					 </div>
 					</form>
+					<div id="formResult">
+					</div>
+					<script>
+							getFormFields = function(event){
+								event.preventDefault()
+								console.log(event)
+								console.log(this)
 
+								var data = new Object();
+								myTemp = "<pre>";
+								for (var i = 0; i < event.target.length; i++) {
+									if(""!= event.target[i].name ){
+									data[event.target[i].name] = event.target[i].value;
+									
+									myTemp += "" + event.target[i].name+ 
+														" = " + event.target[i].value +  "\n";
+									event.target[i].value = "";
+									}
+								};
+
+								myTemp += "</pre>"
+
+								console.log(document.getElementById("formResult").innerHTML += myTemp)
+								var data = JSON.stringify(data)
+								console.log(data)
+
+								
+
+
+							}
+							document.getElementById("myForm").onsubmit = getFormFields
+
+					</script>
 				</div>
 			</div>	
 		</div>
+<!-- NEW STUFF -->
+
+<div class="jumbotron spacer">
+</div>
+
+<!-- NEW STUFF -->
+		<style>
+			.box {
+				background-color: #FFA700;
+				height:100px;
+				margin:1px;
+			}
+			#stack{
+				overflow-y:scroll;
+				height:300px;
+			}
+		</style>
+		<div class="container myEvEx">
+			<h2>The Event Loop</h2>
+			<div class="row">
+				<div class="col-sm-9">
+					<div class="row">
+						<div class="col-sm-3 box">
+							element 1
+						</div>	
+						<div class="col-sm-3 box">
+							element 2
+						</div>
+						<div class="col-sm-3 box">
+							element 3
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-3 box">
+							element 4
+						</div>	
+						<div class="col-sm-3 box">
+							element 5
+						</div>
+						<div class="col-sm-3 box">
+							element 6
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-3 box">
+							element 7
+						</div>	
+						<div class="col-sm-3 box">
+							element 8
+						</div>
+						<div class="col-sm-3 box">
+							element 9
+						</div>
+					</div>
+				</div>
+				<div  class="col-sm-3">
+					<h2>Stack History</h2>
+					<div id="stack">
+					</div>
+				</div>
+			</div>
+			<div id="queue" class="row">
+				<h2>Event Queue</h2>
+
+			</div>
+
+			<script>
+
+				boxes = document.getElementsByClassName("box");
+				var queue = document.getElementById("queue")
+				var stack = document.getElementById("stack")
+				var appendEl = function(type,content,target,att){
+						el = document.createElement(type)
+						el.innerHTML = content;
+						if(att != undefined){
+						for (var i = 0; i < att.length; i++) {
+							el.style[att[i][0]] = att[i][1];
+						};
+						}
+						target.appendChild(el)
+						target.scrollTop = target.scrollHeight;
+				}
+				for (var i = 0; i < boxes.length; i++) {
+
+					boxes[i].onclick = function(e){
+
+						cont = "Event fired for " + this.innerHTML;
+						style = [	["backgroundColor", "rgb(255,167,0)"],
+											["color", "white"]];
+						appendEl("pre", cont, stack, style);
+	
+						var green = 255;
+						_this = this;
+						cpy = _this.cloneNode(true);
+
+						queue.appendChild(cpy);
+						var loop = function(green,_this,cpy){
+
+
+							cont = "Running Loop for " + cpy.innerHTML
+							appendEl("div", cont, stack);
+
+
+							queue.appendChild(cpy);
+							if(green >= 167){
+								_this.style.backgroundColor = "rgb(255,"+green+",0)";
+								green = green - 50;
+								setTimeout(function(){
+									cont = "Running setTimeout for" + cpy.innerHTML;
+									appendEl("div", cont, stack);
+									loop(green,_this,cpy)
+								},500 + queue.childNodes.length*500);
+							} else{
+								cont = "Loop done for " + _this.innerHTML;
+								style=[["backgroundColor", "rgb(255,50,0)"],["color", "white"],
+												["padding","20px"]];
+								appendEl("div", cont, stack, style);
+
+								_this.style.backgroundColor = "rgb(255,167,0)";
+								queue.removeChild(cpy);
+								console.log(cpy)
+							}
+
+						}
+
+						loop(green,_this,cpy)
+					}
+				};
+
+			</script>
+		</div>
+
+<!-- NEW STUFF -->
+
+<div class="jumbotron spacer">
+</div>
+
+<!-- NEW STUFF -->
 
 	</body>
 </html>

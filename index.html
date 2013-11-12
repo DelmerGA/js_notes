@@ -240,26 +240,31 @@ for( var i = 0; i < bubbles.length; i++) {
 			</pre>
 		</div>
 		<script>
+
 			document.getElementById("showExample2").onclick = function(){
 				document.getElementById("example2Code").classList.toggle("hidden")
 			}
+
 			var elements = document.getElementsByClassName("target")
+
 			for( var i = 0; i < elements.length; i++) {
-   			elements[i].onclick = function(event) {
-    		if (event.target == event.currentTarget){
-        	this.style.backgroundColor = "red"
-     		 } else{
-     		 	this.style.backgroundColor = "purple"
-     		 }
-     		setTimeout(targetReset,1000);
-    	}
-		}
-		   	var targetReset = function(){
-    			for( var i = 0; i < bubbles.length; i++){
-    				elements[i].style.backgroundColor = "blue"
-    			}
-    		}
-    		document.getElementById("resetTargets").onclick = targetReset;
+				elements[i].onclick = function(event) {
+					if (event.target == event.currentTarget){
+						this.style.backgroundColor = "red"
+					} else {
+						this.style.backgroundColor = "purple"
+					}
+					setTimeout(targetReset,1000);
+				}
+			}
+
+			var targetReset = function(){
+				for( var i = 0; i < bubbles.length; i++){
+					elements[i].style.backgroundColor = "blue"
+				}
+			}
+
+			document.getElementById("resetTargets").onclick = targetReset;
 		</script>
 	</div>
 
@@ -269,94 +274,89 @@ for( var i = 0; i < bubbles.length; i++) {
 </div>
 
 <!-- NEW STUFF -->
-		<div class="container">
-			<div class="row">
-				<div class="col-sm-6">
-					<h2> Manipulating Form Data </h2>
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-6">
+				<h2> Manipulating Form Data </h2>
 
-					If you have a form you want grab
-					input from that element on submit 
-					it will take a some work.
-					<div class="row">
-						<i>1.) You have to grab the input elements.</i>
-					</div>
-					<div class="row">
-						<i>2.) You have to do something with with the input.</i>
-					</div>
-					<div class="row">
-						<i>3.) You have to clear the input fields.</i>
-					</div>
+				If you have a form you want grab
+				input from that element on submit 
+				it will take a some work.
+				<div class="row">
+					<i>1.) You have to grab the input elements.</i>
 				</div>
-				<div class="col-sm-6">
-					<form id="myForm" class="form-horizontal" role="form">
-						 <div class="form-group">
-    					<label for="something_title">Title</label>
-    						<input type="text" name="something[title]"class="form-control" id="something_title" placeholder="Enter Title">
-  					 </div>
-  					 <div class="form-group">
-    					<label for="something_description">Description</label>
-    						<textarea class="form-control" name="something[description]" id="something_description" placeholder="Enter Description"></textarea>
-  					 </div>
+				<div class="row">
+					<i>2.) You have to do something with with the input.</i>
+				</div>
+				<div class="row">
+					<i>3.) You have to clear the input fields.</i>
+				</div>
+			</div>
+			<div class="col-sm-6">
+				<form id="myForm" class="form-horizontal" role="form">
+					<div class="form-group">
+						<label for="something_title">Title</label>
+						<input type="text" name="something[title]"class="form-control" id="something_title" placeholder="Enter Title">
+					</div>
+					<div class="form-group">
+						<label for="something_description">Description</label>
+						<textarea class="form-control" name="something[description]" id="something_description" placeholder="Enter Description"></textarea>
+					</div>
 
-					 <div class="form-group">
-				    <div class="col-sm-10">
+					<div class="form-group">
+						<div class="col-sm-10">
 				      <button type="submit" class="btn btn-default">Sign in</button>
 				    </div>
- 					 </div>
-					</form>
-					<div id="formResult">
-					</div>
-					<script>
-							getFormFields = function(event){
-								event.preventDefault()
-								console.log(event)
-								console.log(this)
-
-								var data = new Object();
-								myTemp = "<pre>";
-								for (var i = 0; i < event.target.length; i++) {
-									if(""!= event.target[i].name ){
-									data[event.target[i].name] = event.target[i].value;
-									
-									myTemp += "" + event.target[i].name+ 
-														" = " + event.target[i].value +  "\n";
-									event.target[i].value = "";
-									}
-								};
-
-								myTemp += "</pre>"
-
-								console.log(document.getElementById("formResult").innerHTML += myTemp)
-								var data = JSON.stringify(data)
-								console.log(data)
-
-								
-
-
-							}
-							document.getElementById("myForm").onsubmit = getFormFields
-
-					</script>
+				  </div>
+				</form>
+				<div id="formResult">
 				</div>
-			</div>	
-		</div>
+				<script>
+					getFormFields = function(event){
+						event.preventDefault()
+
+						var data = new Object();
+						myTemp = "<pre>";
+						for(var i = 0; i < event.target.length; i++) {
+							if("" != event.target[i].name ){
+								data[event.target[i].name] = event.target[i].value;
+
+								myTemp +=  "" + event.target[i].name + 
+								" = " + event.target[i].value +  "\n";
+
+								event.target[i].value = "";
+							}
+						};
+
+						myTemp += "</pre>"
+
+						document.getElementById("formResult").innerHTML += myTemp;
+						var data = JSON.stringify(data)
+					}
+					document.getElementById("myForm").onsubmit = getFormFields;
+
+				</script>
+			</div>
+		</div>	
+	</div>
 <!-- NEW STUFF -->
 
 <div class="jumbotron spacer">
 </div>
 
 <!-- NEW STUFF -->
-		<style>
-			.box {
-				background-color: #FFA700;
-				height:100px;
-				margin:1px;
-			}
-			#stack{
-				overflow-y:scroll;
-				height:300px;
-			}
-		</style>
+<style>
+	.box {
+		background-color: #FFA700;
+		height:100px;
+		margin:1px;
+	}
+	#stack{
+		overflow-y:scroll;
+		height:300px;
+	}
+</style>
+
 		<div class="container myEvEx">
 			<h2>The Event Loop</h2>
 			<div class="row">
@@ -403,71 +403,68 @@ for( var i = 0; i < bubbles.length; i++) {
 			</div>
 			<div id="queue" class="row">
 				<h2>Event Queue</h2>
-
 			</div>
 
 			<script>
 
 				boxes = document.getElementsByClassName("box");
-				var queue = document.getElementById("queue")
-				var stack = document.getElementById("stack")
-				var appendEl = function(type,content,target,att){
-						el = document.createElement(type)
+				queue = document.getElementById("queue")
+				stack = document.getElementById("stack")
+				appendEl = function(type, content, target, att) {
+						el = document.createElement(type);
 						el.innerHTML = content;
 						if(att != undefined){
-						for (var i = 0; i < att.length; i++) {
-							el.style[att[i][0]] = att[i][1];
-						};
+							for (var i = 0; i < att.length; i++) {
+								el.style[att[i][0]] = att[i][1];
+							};
 						}
 						target.appendChild(el)
 						target.scrollTop = target.scrollHeight;
-				}
-				for (var i = 0; i < boxes.length; i++) {
+					}
 
-					boxes[i].onclick = function(e){
+					for (var i = 0; i < boxes.length; i++) {
 
-						cont = "Event fired for " + this.innerHTML;
-						style = [	["backgroundColor", "rgb(255,167,0)"],
+						boxes[i].onclick = function(e){
+							var green = 255;
+							_this = this;
+
+							cont = "Event fired for " + this.innerHTML;
+							style = [	["backgroundColor", "rgb(255,167,0)"],
 											["color", "white"]];
-						appendEl("pre", cont, stack, style);
-	
-						var green = 255;
-						_this = this;
-						cpy = _this.cloneNode(true);
+							appendEl("pre", cont, stack, style);
 
-						queue.appendChild(cpy);
-						var loop = function(green,_this,cpy){
-
-
-							cont = "Running Loop for " + cpy.innerHTML
-							appendEl("div", cont, stack);
-
-
+							cpy = _this.cloneNode(false);
 							queue.appendChild(cpy);
-							if(green >= 167){
-								_this.style.backgroundColor = "rgb(255,"+green+",0)";
-								green = green - 50;
-								setTimeout(function(){
-									cont = "Running setTimeout for" + cpy.innerHTML;
-									appendEl("div", cont, stack);
-									loop(green,_this,cpy)
-								},500 + queue.childNodes.length*500);
-							} else{
-								cont = "Loop done for " + _this.innerHTML;
-								style=[["backgroundColor", "rgb(255,50,0)"],["color", "white"],
-												["padding","20px"]];
-								appendEl("div", cont, stack, style);
 
-								_this.style.backgroundColor = "rgb(255,167,0)";
-								queue.removeChild(cpy);
-								console.log(cpy)
+							loop = function(green, _this, cpy){
+								cont = "Running Loop for " + cpy.innerHTML
+								appendEl("div", cont, stack);
+								queue.appendChild(cpy);
+
+								if(green >= 167){
+
+									_this.style.backgroundColor = "rgb(255,"+green+",0)";
+									green = green - 50;
+									setTimeout(function(){
+										cont = "Running setTimeout for" + cpy.innerHTML;
+										appendEl("div", cont, stack);
+										loop(green,_this,cpy)
+									}, 500 + queue.childNodes.length * 500);
+								} else {
+									cont = "Loop done for " + _this.innerHTML;
+									style=[["backgroundColor", "rgb(255,50,0)"],
+									["color", "white"],
+									["padding","20px"]];
+									appendEl("div", cont, stack, style);
+
+									_this.style.backgroundColor = "rgb(255,167,0)";
+									queue.removeChild(cpy);
+								}
 							}
 
+							loop(green, _this, cpy)
 						}
-
-						loop(green,_this,cpy)
-					}
-				};
+					};
 
 			</script>
 		</div>

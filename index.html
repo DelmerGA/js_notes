@@ -434,7 +434,7 @@ for( var i = 0; i < bubbles.length; i++) {
 
 							cpy = _this.cloneNode(true);
 							queue.appendChild(cpy);
-
+							console.log(cpy)
 							loop = function(green, _this, cpy){
 								cont = "Running Loop for " + cpy.innerHTML
 								appendEl("div", cont, stack);
@@ -457,7 +457,7 @@ for( var i = 0; i < bubbles.length; i++) {
 									appendEl("div", cont, stack, style);
 
 									_this.style.backgroundColor = "rgb(255,167,0)";
-									queue.removeChild(cpy);
+									queue.removeChild(_this);
 								}
 							}
 

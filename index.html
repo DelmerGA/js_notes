@@ -1,34 +1,105 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
 	<script>
-	$(function(){
+	/**
+	* Waits for window ot load
+	*/
+	window.onload = function(){
 
-		var bubbles = $('.bubble')
-		var time = 0;
-		for( var i = 0; i < bubbles.length; i++){
+	 /**
+		*	Begin Demo 1
+    */
+
+		/**
+		* Grab bubbles from DOM.
+		*
+		* @param {bubbles} The elements with the '.bubble' class
+		*/
+		var bubbles = document.getElementsByClassName('bubble')
+		
+		for(var i = 0; i < bubbles.length; i++){
+			/**
+			* Attach click events to bubble elements
+			*
+			* @this {bubble} An element with the '.bubble' class
+			*/
 			bubbles[i].onclick = function(event){
-    				if(this == event.target){
-    					alert("I was clicked!")
-    					this.style.backgroundColor = "red"
-    				} else {
-    					alert("One of my inner divs were clicked!")
-    					this.style.backgroundColor = "red"
-    					this.children[0].style.backgroundColor = "purple"
-    				}
-    			}
+				if(this == event.target){
+					alert('I was clicked!');
+
+					this.style.backgroundColor = 'red';
+				} else {
+    			alert('One of my inner divs were clicked!');
+
+    			this.style.backgroundColor = 'red';
+    			this.children[0].style.backgroundColor = 'purple';
     		}
-    		var reset = function(){
-    			for( var i = 0; i < bubbles.length; i++){
-    				bubbles[i].style.backgroundColor = "blue"
-    			}
+    	};
+    }
+
+
+  	/**
+		* Reset the bubble example.
+		*
+		* @this {Circle} An element with the '.bubble' class
+		*/
+    var reset = function(){
+    	for(var i = 0; i < bubbles.length; i++){
+    		bubbles[i].style.backgroundColor = 'blue';
+    	}
+    };
+
+  	/**
+		* Assign reset to click of 'resetBubbles' button.
+		*/
+    document.getElementById('resetBubbles').onclick = reset;
+
+    document.getElementById('showExample1').onclick = function(event){
+    	var codeEx = document.getElementById('codeEx1');
+    	codeEx.classList.toggle('hidden');
+    };
+
+    /**
+		*	End Demo 1
+    */
+
+
+    /**
+		*	Begin Demo 2
+    */
+
+    document.getElementById('showExample2').onclick = function(){
+    	document.getElementById('example2Code').classList.toggle('hidden');
+    };
+
+    var elements = document.getElementsByClassName('target');
+
+    for(var i = 0; i < elements.length; i++) {
+    	elements[i].onclick = function(event) {
+    		if (event.target == event.currentTarget){
+    			this.style.backgroundColor = 'red';
+    		} else {
+    			this.style.backgroundColor = "purple";
     		}
-    		$('#resetBubbles').click(reset)
-    		$('#showExample1').click(function(event){
-    			$("#codeEx1")[0].classList.toggle("hidden");
-    		})
-    	})
+    		setTimeout(targetReset, 1000);
+    	};
+    }
+
+    var targetReset = function() {
+    	for(var i = 0; i < bubbles.length; i++) {
+    		elements[i].style.backgroundColor = 'blue';
+    	}
+    };
+
+
+    document.getElementById("resetTargets").onclick = targetReset;
+
+
+
+
+
+  }
 	</script>
 	<script src="http://code.jquery.com/jquery.min.js"></script>
 	<link href="http://getbootstrap.com/dist/css/bootstrap.css" rel="stylesheet" type="text/css" />
@@ -50,43 +121,54 @@
 
 	   </style>
 
-<meta charset=utf-8 />
-<title>JS Notes</title>
-</head>
-	<body>
-	
-<!-- NEW STUFF -->	
+	   <meta charset=utf-8 />
+	   <title>JS Notes</title>
+	 </head>
+
+	 <body>
+
+	 	<!-- NEW STUFF -->	
 		<div class="jumbotron">
-			 <div class="container">
-			 		<h1 class="heading">Some JS Notes</h1>
-			 </div>
+			<div class="container">
+				<h1 class="heading">Some JS Notes</h1>
+			</div>
 		</div>
 
-<!-- NEW STUFF -->
+		<!-- NEW STUFF -->
+
+		<!-- Bubble Start -->
 		<div class="container">
+
+
+			<!-- Bubble Expo -->
 			<div class="row">
 				<div class="col-sm-6">
-					<h2>
-						Event bubbling!
-					</h2>
+					<h2> Event bubbling! </h2>
+
 					<p>
 						When an event occurs on an element
 						the default behavior of javascript is
-						to trigger that event through each of the parent nodes in DOM until it gets to the window.
+						to trigger that event through each of the parent nodes in DOM until it gets to the window. 
 					</p>
+
 					<p>
 						This behavior is caslled event bubbling.
 					</p>
 				</div>
+
+				<!-- Bubble Demo -->
 				<div class="bubble col-xs-6">
 					<div class="bubble col-xs-12">
 						<div class="bubble col-xs-12">
-				            <div class="bubble col-xs-12">
-				            </div>
-				        </div>
-				    </div>
+							<div class="bubble col-xs-12">
+							</div>
+						</div>
+					</div>
 				</div>
+
 			</div>
+
+			<!-- Bubble Buttons -->
 			<div class="row">
 				<div class="col-sm-6 col-sm-offset-6">
 					<button id="resetBubbles" class="btn btn-default">
@@ -97,14 +179,15 @@
 					</button>
 				</div>
 			</div>
-			<div class="row">
-				<div class="col-xs-12">
-				</div>
-			</div>
+
 		</div>
+
+		<!-- Bubble Example -->
 		<div id="codeEx1" class="hidden">
 			* Slightly different from the above example.
-<pre>
+
+			<!-- Bubble Style -->
+			<pre>
 &lt;style&gt;
 	.bubble{
 	    position: inherit;
@@ -113,8 +196,10 @@
 	    border: solid 5px white;
 	}
 &lt;/style&gt;
-</pre>
-	<pre>
+			</pre>
+
+			<!-- Bubble Divs -->
+			<pre>
 &lt;div class="bubble"&gt;
     &lt;div class="bubble"&gt;
         &lt;div class="bubble"&gt;
@@ -123,28 +208,34 @@
         &lt;/div&gt;
     &lt;/div&gt;
 &lt;/div&gt;
-	</pre>
-	<div class="container">
+			</pre>
+
+			<!-- Show Bubble Style -->
+			<div class="container">
 				<style>
-		.bubble-ish{
-		    position: inherit;
-		    background-color: blue; 
-		    padding: 20px;
-		    border: solid 5px white;
-		}
-		</style>
-		<div class="bubble-ish">
-		<div class="bubble-ish">
-		    <div class="bubbl-ish">
-		        <div class="bubble-ish">
+					.bubble-ish{
+						position: inherit;
+						background-color: blue; 
+						padding: 20px;
+						border: solid 5px white;
+					}
+				</style>
+
+
+				<div class="bubble-ish">
+					<div class="bubble-ish">
+						<div class="bubbl-ish">
+							<div class="bubble-ish">
 		            <div class="bubble-ish">
 		            </div>
+		          </div>
 		        </div>
+		      </div>
 		    </div>
-		</div>
-	</div>
-	</div>
-	<pre>
+		  </div>
+
+		  <!-- Bubble Script -->
+		  <pre>
 &lt;script&gt;
 var bubbles = document.getElementsByClassName("bubble")
 for( var i = 0; i < bubbles.length; i++) {
@@ -153,64 +244,72 @@ for( var i = 0; i < bubbles.length; i++) {
     }
 }
 &lt;/script&gt;
-	</pre>
-	
-	 <div class="container">
-		<div class="bubble-ish bubble-ex">
-		    <div class="bubble-ish bubble-ex">
-		        <div class="bubble-ish bubble-ex">
-		            <div class="bubble-ish bubble-ex">
-		            </div>
-		        </div>
-		    </div>
-		</div>
-		<script>
-		var bubbles = document.getElementsByClassName("bubble-ex")
-			for( var i = 0; i < bubbles.length; i++) {
-			    bubbles[i].onclick = function(event) {
-			        this.style.backgroundColor = "red"
+			</pre>
+
+			<!-- Bubble Example -->
+			<div class="container">
+				<div class="bubble-ish bubble-ex">
+					<div class="bubble-ish bubble-ex">
+						<div class="bubble-ish bubble-ex">
+							<div class="bubble-ish bubble-ex">
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+				<script>
+
+				var bubbles = document.getElementsByClassName("bubble-ex")
+				for( var i = 0; i < bubbles.length; i++) {
+					bubbles[i].onclick = function(event) {
+			        this.style.backgroundColor = "red";
 			    }
-			}
-
-	</script>
-	</div>
-	</div>
-
-
-	<!-- NEW STUFF -->
-<div class="jumbotron spacer">
-</div>
-<!-- NEW STUFF -->
-
-<div class="container">
-	<div class="row">
-		<div class="col-sm-6">
-		<h1>Event Target/Current Target</h1>
-
-		 In javascript we also have <code>target</code>
-		 and <code>currentTarget</code>
-		</div>
-		<div class="col-sm-6">
-		
-			<style>
-				.target{
-					background: blue;
-					padding:20px;
-					border: solid 5px white;
-
-				}
-			</style>
-			<div class="target">
-		    <div class="target">
-		        <div class="target">
-		            <div class="target">
-		            </div>
-		        </div>
-		    </div>
+			  }
+				</script>
 			</div>
-
 		</div>
-	</div>
+		<!-- Bubble End -->
+
+		<!-- NEW STUFF -->
+		<div class="jumbotron spacer">
+		</div>
+		<!-- NEW STUFF -->
+
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-6">
+					<h1> Event Target/Current Target </h1>
+
+					<p>
+						In javascript we also have
+						<code>target</code>
+						and <code>currentTarget.</code>
+					</p>
+				</div>
+
+
+				<div class="col-sm-6">
+
+					<style>
+					.target{
+						background: blue;
+						padding:20px;
+						border: solid 5px white;
+					}
+					</style>
+
+					<div class="target">
+						<div class="target">
+							<div class="target">
+								<div class="target">
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
 
 		<div class="row">
 			<div class="col-sm-6 col-sm-offset-6">
@@ -238,41 +337,15 @@ for( var i = 0; i < bubbles.length; i++) {
 
 			</pre>
 		</div>
-		<script>
-
-			document.getElementById("showExample2").onclick = function(){
-				document.getElementById("example2Code").classList.toggle("hidden")
-			}
-
-			var elements = document.getElementsByClassName("target")
-
-			for( var i = 0; i < elements.length; i++) {
-				elements[i].onclick = function(event) {
-					if (event.target == event.currentTarget){
-						this.style.backgroundColor = "red"
-					} else {
-						this.style.backgroundColor = "purple"
-					}
-					setTimeout(targetReset,1000);
-				}
-			}
-
-			var targetReset = function(){
-				for( var i = 0; i < bubbles.length; i++){
-					elements[i].style.backgroundColor = "blue"
-				}
-			}
-
-			document.getElementById("resetTargets").onclick = targetReset;
-		</script>
 	</div>
 
 
-<!-- NEW STUFF -->
-<div class="jumbotron spacer">
-</div>
+	<!-- NEW STUFF -->
+	<div class="jumbotron spacer">
+	</div>
+	<!-- NEW STUFF -->
 
-<!-- NEW STUFF -->
+
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-6">
